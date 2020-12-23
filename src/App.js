@@ -33,6 +33,75 @@ class App extends Component {
     this.getItems();
   }
 
+  onSelect(itemLink) {
+    this.clearState();
+    this.itemService.getItem(itemLink).then(item => {
+      this.setState({
+        showDetails: true,
+        selectedItem: item
+      });
+    });
+  }
+
+  onCancel(){
+    this.clearState();
+  }
+
+  onNewItem(){
+    this.clearState();
+    this.setState({
+      newItem: true
+    });
+  }
+
+  onEditItem(){
+    this.setState({
+      showDetails: false,
+      editItem: true,
+      newItem: null
+    });
+  }
+
+  onCancelEdit() {
+        this.setState({
+          showDetails: true,
+          editItem: false,
+          newItem: null
+        });
+      }
+    
+  onUpdateItem(item) {
+        this.clearState();
+        this.itemService.updateItem(item).then(item => {
+            this.getItems();
+          }
+        );
+        }
+
+  onCreateItem(newItem) {
+        this.clearState();
+        this.itemService.createItem(newItem).then(item => {
+            this.getItems();
+          }
+        );
+      }
+
+  onDeleteItem(itemLink) {
+        this.clearState();
+        this.itemService.deleteItem(itemLink).then(res => {
+            this.getItems();
+          }
+        );
+      }
+
+  clearState() {
+        this.setState({
+          showDetails: false,
+          selectedItem: null,
+          editItem: false,
+          newItem: null
+        });
+      }
 
   render(){
     const items = this.state.items;
