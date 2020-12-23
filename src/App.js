@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import ItemService from './shared/mock-item-service';
+import NewItem from './components/new-item';
 
 class App extends Component {
   constructor(props){
